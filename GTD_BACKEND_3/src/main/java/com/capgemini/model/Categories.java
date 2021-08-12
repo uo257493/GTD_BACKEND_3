@@ -31,8 +31,8 @@ public class Categories {
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "user_id")
-	private Users user;
+	@JoinColumn(name = "propietario_id")
+	private Propietario propietario;
 
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private List<Tasks> tasks;
@@ -65,12 +65,12 @@ public class Categories {
 		this.name = name;
 	}
 
-	public Users getUser() {
-		return user;
+	public Propietario getPropietario() {
+		return propietario;
 	}
 
-	public void setUser(Users user) {
-		this.user = user;
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
 	}
 
 	public List<Tasks> getTasks() {
@@ -91,7 +91,7 @@ public class Categories {
 
 	@Override
 	public String toString() {
-		return "categoriesVO [id=" + id + ", name=" + name + ", userId=" + "]";
+		return "categoriesVO [id=" + id + ", name=" + name + ", propietarioId=" + "]";
 	}
 
 	@Override
