@@ -17,6 +17,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 	@Autowired
 	private CategoriesRepository categoriesRepository;
 	
+	//buscar categoria por usuario.
 	@Override
 	public Categories findById(Long id) {
 		Optional<Categories> cateOptional = categoriesRepository.findById(id);
