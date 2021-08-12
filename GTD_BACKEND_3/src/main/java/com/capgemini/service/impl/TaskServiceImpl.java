@@ -9,6 +9,7 @@ import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.model.Categories;
+import com.capgemini.model.Tasks;
 import com.capgemini.repositories.TaskRepository;
 import com.capgemini.service.TaskService;
 
@@ -26,63 +27,69 @@ public class TaskServiceImpl implements TaskService {
 	 * @throws Exception
 	 */
 	@Override
-	public Task save(Task entity) throws Exception {
-		Task t =  taskRepository.save(entity);
+	public Tasks save(Tasks entity) throws Exception {
+		Tasks t =  taskRepository.save(entity);
 		if(t == null)
 			throw new Exception("La tarea no es valida");
 		return t;
 	}
 
-	/**Lista las tareas de una
-	 * @param category
-	 * a partir de una fecha
-	 * @param date, sin incluir las pasadas
-	 * @return
-	 */
-	@Override
-	public List<Task> findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(Categories category, Date date) {
-		return taskRepository.findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(category, date);
-	}
-
-	/**Lista las tareas de una
-	 * @param category
-	 * @return
-	 */
-	@Override
-	public List<Task> findByCategoryAndPlannedOrderByPlannedAsc(Categories category) {
-		return taskRepository.findByCategoryAndPlannedOrderByPlannedAsc(category);
-	}
-
-	/**Lista las tareas de una
-	 * a partir de una fecha
-	 * @param date, sin incluir las pasadas
-	 * @return
-	 */
-	@Override
-	public List<Task> findPlannedGreaterThanEqualOrderByPlannedAsc(Date date) {
-		return taskRepository.findPlannedGreaterThanEqualOrderByPlannedAsc(date);
-	}
-
-	/**Lista las tareas de una
-	 * a partir de una fecha
-	 * @param date, sin incluir las pasadas
-	 * @return
-	 */
-	@Override
-	public List<Task> findPlannedEqualsOrderByPlannedAsc(Date date) {
-		return taskRepository.findPlannedEqualsOrderByPlannedAsc(date);
-	}
-
+	
 	/**
 	 * Busca la tarea con un
 	 * @param id
 	 * @return devolviendo el objeto tarea
 	 */
 	@Override
-	public Optional<Task> findById(Long id) {
-		return taskRepository.findById(id);
+	public Tasks findById(Long id) {
+		return taskRepository.findById(id).get();
 	}
 	
+//	@Autowired
+//	CategoryRepository categoryRepository;
+	/**
+	 * Lista las tareas en funcion a su categorias
+	 */
+	@Override 
+	public List<Tasks> listTasks(Long id, boolean passedDate){
+		String name = "";
+		if(id==-1)
+			name="inbox";
+		else if(id==-2)
+			name="hoy";
+		
+		if(!passedDate) {
+			if(name.equals("inbox")) {
+				Categories categories = new Categories();
+				categories.setId(null);
+				return taskRepository.findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(categories, new java.sql.Date(System.currentTimeMillis()));}
+			else if (name.equals("hoy")) {
+				return taskRepository.findByPlannedEqualsOrderByPlannedAsc(new java.sql.Date(System.currentTimeMillis()));
+			}
+			else {
+			
+				Categories categories = null; //categoryRepository.getById(id)
+				return taskRepository.findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(categories, new java.sql.Date(System.currentTimeMillis()));
+				
+			}
+		}
+		else {
+			if(name.equals("inbox")) {
+				Categories categories = new Categories();
+				categories.setId(null);
+				return taskRepository.findByCategoryOrderByPlannedAsc(categories);}
+			else if (name.equals("hoy")) {
+				return taskRepository.findByPlannedGreaterThanEqualOrderByPlannedAsc(null);
+			}
+			else {
+			
+				Categories categories = null; //categoryRepository.getById(id)
+				return taskRepository.findByCategoryOrderByPlannedAsc(categories);
+			}
+				
+		}
+		
+	}
 	
 	
 	

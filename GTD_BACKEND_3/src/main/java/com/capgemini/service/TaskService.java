@@ -1,12 +1,9 @@
 package com.capgemini.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.scheduling.config.Task;
-
-import com.capgemini.model.Categories;
+import com.capgemini.model.Tasks;
 
 public interface TaskService {
 
@@ -16,41 +13,21 @@ public interface TaskService {
 	 * @return la tarea añadida
 	 * @throws Exception
 	 */
-	Task save(Task entity) throws Exception;
-
-	/**Lista las tareas de una
-	 * @param category
-	 * a partir de una fecha
-	 * @param date, sin incluir las pasadas
-	 * @return
-	 */
-	List<Task> findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(Categories category, Date date);
-
-	/**Lista las tareas de una
-	 * @param category
-	 * @return
-	 */
-	List<Task> findByCategoryAndPlannedOrderByPlannedAsc(Categories category);
-
-	/**Lista las tareas de una
-	 * a partir de una fecha
-	 * @param date, sin incluir las pasadas
-	 * @return
-	 */
-	List<Task> findPlannedGreaterThanEqualOrderByPlannedAsc(Date date);
-
-	/**Lista las tareas de una
-	 * a partir de una fecha
-	 * @param date, sin incluir las pasadas
-	 * @return
-	 */
-	List<Task> findPlannedEqualsOrderByPlannedAsc(Date date);
+	Tasks save(Tasks entity) throws Exception;
 
 	/**
 	 * Busca la tarea con un
 	 * @param id
 	 * @return devolviendo el objeto tarea
 	 */
-	Optional<Task> findById(Long id);
+	Tasks findById(Long id);
+
+	/**
+	 * Lista las tareas de una
+	 * @param s, categoria
+	 * @param passedDate, indicando si quiere añadir las de dias pasados
+	 * @return lista de tareas
+	 */
+	List<Tasks> listTasks(Long s, boolean passedDate);
 
 }

@@ -4,24 +4,24 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.config.Task;
 
 import com.capgemini.model.Categories;
+import com.capgemini.model.Tasks;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<Tasks, Long> {
 	/**Lista las tareas de una
 	 * @param category
 	 * a partir de una fecha
 	 * @param date, sin incluir las pasadas
 	 * @return
 	 */
-	List<Task> findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(Categories category, Date date);
+	List<Tasks> findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(Categories category, Date date);
 	
 	/**Lista las tareas de una
 	 * @param category
 	 * @return
 	 */
-	List<Task> findByCategoryAndPlannedOrderByPlannedAsc(Categories category);
+	List<Tasks> findByCategoryOrderByPlannedAsc(Categories category);
 
 	
 	/**Lista las tareas de una
@@ -29,7 +29,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	 * @param date, sin incluir las pasadas
 	 * @return
 	 */
-	List<Task> findPlannedGreaterThanEqualOrderByPlannedAsc(Date date);
+	List<Tasks> findByPlannedGreaterThanEqualOrderByPlannedAsc(Date date);
 	
 	
 	/**Lista las tareas de una
@@ -37,7 +37,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	 * @param date, sin incluir las pasadas
 	 * @return
 	 */
-	List<Task> findPlannedEqualsOrderByPlannedAsc(Date date);
+	List<Tasks> findByPlannedEqualsOrderByPlannedAsc(Date date);
 	
 
 	
