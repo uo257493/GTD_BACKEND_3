@@ -1,8 +1,9 @@
 package com.capgemini.model.DTO;
 
+import java.sql.Date;
 import java.util.List;
 
-import com.capgemini.model.Groups;
+import com.capgemini.model.GroupUsers;
 
 public class PropietarioDTO {
 
@@ -16,5 +17,10 @@ public class PropietarioDTO {
 	public String password2;
 	public Long idCategorias;
 	public Long idTasks;
-	
+	public List<GroupUsers> groupUsers;
+	public String nombre;
+	public String descripcion;
+	public boolean Admin;
+	public Date fechaCreacion;
+
 }
