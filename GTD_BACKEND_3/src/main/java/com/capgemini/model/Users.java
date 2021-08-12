@@ -33,9 +33,10 @@ public class Users extends Propietario{
 	
 	@Transient
 	private String password2;
-
+	
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-	private List<Group> group;
+	private List<GroupUsers> groupUsers;
+
 	
 	public void setPassword2(String password2) {
 		this.password2 = password2;
@@ -94,41 +95,22 @@ public class Users extends Propietario{
 		
 	}
 
-	public List<Group> getGroup() {
-		return group;
+	public List<GroupUsers> getGroupUsers() {
+		return groupUsers;
 	}
 
-	public void setGroup(List<Group> group) {
-		this.group = group;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, group, isAdmin, login, password, password2, status);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Users other = (Users) obj;
-		return Objects.equals(email, other.email) && Objects.equals(group, other.group) && isAdmin == other.isAdmin
-				&& Objects.equals(login, other.login) && Objects.equals(password, other.password)
-				&& Objects.equals(password2, other.password2) && Objects.equals(status, other.status);
+	public void setGroupUsers(List<GroupUsers> groupUsers) {
+		this.groupUsers = groupUsers;
 	}
 
 	@Override
 	public String toString() {
 		return "Users [email=" + email + ", isAdmin=" + isAdmin + ", login=" + login + ", password=" + password
-				+ ", status=" + status + ", password2=" + password2 + ", group=" + group + "]";
+				+ ", status=" + status + ", password2=" + password2 + ", groupUsers=" + groupUsers + "]";
 	}
 
 	public Users(Long id, String type, String email, boolean isAdmin, String login, String password, String status,
-			String password2, List<Group> group) {
+			String password2, List<GroupUsers> groupUsers) {
 		super(id, type);
 		this.email = email;
 		this.isAdmin = isAdmin;
@@ -136,7 +118,10 @@ public class Users extends Propietario{
 		this.password = password;
 		this.status = status;
 		this.password2 = password2;
-		this.group = group;
+		this.groupUsers = groupUsers;
 	}
-	
+
+
+
+
 }
