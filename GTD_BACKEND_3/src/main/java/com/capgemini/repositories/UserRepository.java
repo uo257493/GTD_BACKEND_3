@@ -1,23 +1,12 @@
 package com.capgemini.repositories;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.capgemini.model.Propietario;
 import com.capgemini.model.Users;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<Users, Integer> {
 
-	List<Users> findAllExcept();
-
-	Users getByPassword(String password);
-
-	Users getAllExcept(String login);
-
-	Users getBySession(String login);
-
-	boolean existsUser(Users users);
-
-	void updateStatus(String status);
+	Propietario save(Propietario propietario);
 
 }

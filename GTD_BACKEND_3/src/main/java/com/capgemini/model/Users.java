@@ -1,14 +1,12 @@
 package com.capgemini.model;
 
-import java.util.List;
+
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,7 +28,6 @@ public class Users extends Propietario{
 	@Column(name = "password")
 	private String password;
 
-	@Enumerated(EnumType.STRING)
     private String status;
 	
 	@Transient
@@ -40,13 +37,6 @@ public class Users extends Propietario{
 		this.password2 = password2;
 	}
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Categories> categories;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Tasks> tasks;
-
-	
 	public String getEmail() {
 		return email;
 	}
@@ -91,49 +81,23 @@ public class Users extends Propietario{
 		this.status = status;
 	}
 
-	public List<Categories> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Categories> categories) {
-		this.categories = categories;
-	}
-
-	public List<Tasks> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<Tasks> tasks) {
-		this.tasks = tasks;
+	
+	public Users(Long id, String type) {
+		super(id, type);
 	}
 
 	public Users() {
+		
 	}
-
-	public Users(String email, boolean isAdmin, String login, String password, String status, String password2,
-			List<Categories> categories, List<Tasks> tasks) {
-		super();
+	public Users(Long id, String type, String email, boolean isAdmin, String login, String password, String status,
+			String password2) {
+		super(id, type);
 		this.email = email;
 		this.isAdmin = isAdmin;
 		this.login = login;
 		this.password = password;
 		this.status = status;
 		this.password2 = password2;
-		this.categories = categories;
-		this.tasks = tasks;
-	}
-
-	public Users(Long id, String email, boolean isAdmin, String login, String password, String status, String password2,
-			List<Categories> categories, List<Tasks> tasks) {
-		super();
-		this.email = email;
-		this.isAdmin = isAdmin;
-		this.login = login;
-		this.password = password;
-		this.status = status;
-		this.password2 = password2;
-		this.categories = categories;
-		this.tasks = tasks;
 	}
 
 	@Override

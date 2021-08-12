@@ -1,14 +1,19 @@
-package com.capgemini.service;
+package com.capgemini.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.capgemini.model.Propietario;
 import com.capgemini.model.Users;
+import com.capgemini.repositories.UserRepository;
+import com.capgemini.service.UserService;
 
-public interface UserService {
+public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private UserRepository userRepository; 
 //	Users getByPassword(String password);
 //
-	Users  save(Users users);
-
-
+	//Propietario  save(Propietario propietario);
 //
 //	List<Users> findAll();
 //
@@ -34,8 +39,19 @@ public interface UserService {
 //
 ////	List<Users> findAllExcept();
 //
-///@Override
+//@Override
 //boolean existsUser(Users users);
 //	
+
+
+
+	@Override
+	public Users save(Users users) {
+		// TODO Auto-generated method stub
+		return userRepository.save(users);
+	}
+
+
+	
 
 }

@@ -48,8 +48,8 @@ public class Tasks {
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "user_id")
-	private Users user;
+	@JoinColumn(name = "propietario_id")
+	private Propietario propietario;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
@@ -136,12 +136,14 @@ public class Tasks {
 		this.observations = observations;
 	}
 
-	public Users getUser() {
-		return user;
+	
+
+	public Propietario getPropietario() {
+		return propietario;
 	}
 
-	public void setUser(Users user) {
-		this.user = user;
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
 	}
 
 	public Categories getCategory() {
@@ -154,7 +156,7 @@ public class Tasks {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, comments, created, finished, id, observations, planned, title, user);
+		return Objects.hash(category, comments, created, finished, id, observations, planned, propietario, title);
 	}
 
 	@Override
@@ -169,15 +171,9 @@ public class Tasks {
 		return Objects.equals(category, other.category) && Objects.equals(comments, other.comments)
 				&& Objects.equals(created, other.created) && Objects.equals(finished, other.finished)
 				&& Objects.equals(id, other.id) && Objects.equals(observations, other.observations)
-				&& Objects.equals(planned, other.planned) && Objects.equals(title, other.title)
-				&& Objects.equals(user, other.user);
+				&& Objects.equals(planned, other.planned) && Objects.equals(propietario, other.propietario)
+				&& Objects.equals(title, other.title);
 	}
 
-	@Override
-	public String toString() {
-		return "TasksVO [id=" + id + ", comments=" + comments + ", created=" + created + ", finished=" + finished
-				+ ", planned=" + planned + ", title=" + title + ", observations=" + observations + ", user=" + user
-				+ ", category=" + category + "]";
-	}
 
 }
