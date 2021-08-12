@@ -1,12 +1,13 @@
 package com.capgemini.model;
 
 
+import java.util.List;
 import java.util.Objects;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,6 +34,9 @@ public class Users extends Propietario{
 	@Transient
 	private String password2;
 
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+	private List<Group> group;
+	
 	public void setPassword2(String password2) {
 		this.password2 = password2;
 	}
@@ -89,20 +93,18 @@ public class Users extends Propietario{
 	public Users() {
 		
 	}
-	public Users(Long id, String type, String email, boolean isAdmin, String login, String password, String status,
-			String password2) {
-		super(id, type);
-		this.email = email;
-		this.isAdmin = isAdmin;
-		this.login = login;
-		this.password = password;
-		this.status = status;
-		this.password2 = password2;
+
+	public List<Group> getGroup() {
+		return group;
+	}
+
+	public void setGroup(List<Group> group) {
+		this.group = group;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, isAdmin, login, password, status);
+		return Objects.hash(email, group, isAdmin, login, password, password2, status);
 	}
 
 	@Override
@@ -114,14 +116,27 @@ public class Users extends Propietario{
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		return Objects.equals(email, other.email) && isAdmin == other.isAdmin
+		return Objects.equals(email, other.email) && Objects.equals(group, other.group) && isAdmin == other.isAdmin
 				&& Objects.equals(login, other.login) && Objects.equals(password, other.password)
-				&& Objects.equals(status, other.status);
+				&& Objects.equals(password2, other.password2) && Objects.equals(status, other.status);
 	}
 
 	@Override
 	public String toString() {
-		return "usersVO [email=" + email + ", isAdmin=" + isAdmin + ", login=" + login + ", password="
-				+ password + ", status=" + status + "]";
+		return "Users [email=" + email + ", isAdmin=" + isAdmin + ", login=" + login + ", password=" + password
+				+ ", status=" + status + ", password2=" + password2 + ", group=" + group + "]";
 	}
+
+	public Users(Long id, String type, String email, boolean isAdmin, String login, String password, String status,
+			String password2, List<Group> group) {
+		super(id, type);
+		this.email = email;
+		this.isAdmin = isAdmin;
+		this.login = login;
+		this.password = password;
+		this.status = status;
+		this.password2 = password2;
+		this.group = group;
+	}
+	
 }

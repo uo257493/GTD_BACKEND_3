@@ -1,5 +1,9 @@
 package com.capgemini.model.DTO;
 
+import java.util.List;
+
+import com.capgemini.model.Group;
+
 public class PropietarioDTO {
 
 	public Long id;
@@ -12,4 +16,5 @@ public class PropietarioDTO {
 	public String password2;
 	public Long idCategorias;
 	public Long idTasks;
+	public List<Group> group;;
 }
