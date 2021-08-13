@@ -43,6 +43,7 @@ public class TaskController {
 	public Tasks addTasks( @RequestBody Tasks tasks){
 		
 		try {
+			tasks.setCreated(new Date(System.currentTimeMillis()));
 			return service.save(tasks);
 		} catch (Exception e) {
 			e.printStackTrace();
