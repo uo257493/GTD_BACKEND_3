@@ -1,27 +1,21 @@
 package com.capgemini.model;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+
 @Entity
 @Table(name = "users")
-public class Users {
+public class Users extends Propietario{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
 
 	@Column(name = "email")
 	private String email;
@@ -35,52 +29,17 @@ public class Users {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "status")
-	private String status;
-
+    private String status;
+	
 	@Transient
 	private String password2;
+	
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+	private List<GroupUsers> groupUsers;
 
-	public String getPassword2() {
-		return password2;
-	}
-
+	
 	public void setPassword2(String password2) {
 		this.password2 = password2;
-	}
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Categories> categories;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Tasks> tasks;
-
-	public Users() {
-	}
-
-	public Users(String email, boolean isAdmin, String login, String password, String status) {
-		this.email = email;
-		this.isAdmin = isAdmin;
-		this.login = login;
-		this.password = password;
-		this.status = status;
-	}
-
-	public Users(Long id, String email, boolean isAdmin, String login, String password, String status) {
-		this.id = id;
-		this.email = email;
-		this.isAdmin = isAdmin;
-		this.login = login;
-		this.password = password;
-		this.status = status;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getEmail() {
@@ -95,6 +54,10 @@ public class Users {
 		return isAdmin;
 	}
 
+	public String getPassword2() {
+		return password2;
+	}
+	
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
@@ -123,60 +86,42 @@ public class Users {
 		this.status = status;
 	}
 
-	public List<Categories> getCategories() {
-		return categories;
+	
+	public Users(Long id, String type) {
+		super(id, type);
 	}
 
-	public void setCategories(List<Categories> categories) {
-		this.categories = categories;
+	public Users() {
+		
 	}
 
-	public List<Tasks> getTasks() {
-		return tasks;
+	public List<GroupUsers> getGroupUsers() {
+		return groupUsers;
 	}
 
-	public void setTasks(List<Tasks> tasks) {
-		this.tasks = tasks;
-	}
-
-	public void addCategory(Categories category) {
-		if (categories == null) {
-			categories = new ArrayList<>();
-		}
-		categories.add(category);
-		category.setUser(this);
-	}
-
-	public void addTask(Tasks task) {
-		if (tasks == null) {
-			tasks = new ArrayList<>();
-		}
-		tasks.add(task);
-		task.setUser(this);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, id, isAdmin, login, password, status);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Users other = (Users) obj;
-		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && isAdmin == other.isAdmin
-				&& Objects.equals(login, other.login) && Objects.equals(password, other.password)
-				&& Objects.equals(status, other.status);
+	public void setGroupUsers(List<GroupUsers> groupUsers) {
+		this.groupUsers = groupUsers;
 	}
 
 	@Override
 	public String toString() {
-		return "usersVO [id=" + id + ", email=" + email + ", isAdmin=" + isAdmin + ", login=" + login + ", password="
-				+ password + ", status=" + status + "]";
+		return "Users [email=" + email + ", isAdmin=" + isAdmin + ", login=" + login + ", password=" + password
+				+ ", status=" + status + ", password2=" + password2 + ", groupUsers=" + groupUsers + "]";
 	}
+
+	public Users(Long id, String type, String email, boolean isAdmin, String login, String password, String status,
+			String password2, List<GroupUsers> groupUsers) {
+		super(id, type);
+		this.email = email;
+		this.isAdmin = isAdmin;
+		this.login = login;
+		this.password = password;
+		this.status = status;
+		this.password2 = password2;
+		this.groupUsers = groupUsers;
+	}
+
+
+
+
 }
