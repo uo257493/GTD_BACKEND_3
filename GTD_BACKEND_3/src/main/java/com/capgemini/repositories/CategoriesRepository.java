@@ -9,14 +9,13 @@ import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.model.Categories;
+import com.capgemini.model.Propietario;
 
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, Long>{
 
-	/**
-	 * Obtiene categoria por ID de la misma.
+	/*
+	 * obtiene categorias por ID propietario
 	 */
-	//	@Query("SELECT c FROM Categories c WHERE c.id=?")
-	//	public Categories findCategoryPorId(Long id); 
-	
+	public List<Categories> findByPropietario_ID(Propietario propietario);
 }

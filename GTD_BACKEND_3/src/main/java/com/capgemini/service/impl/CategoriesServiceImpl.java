@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.model.Categories;
+import com.capgemini.model.Propietario;
 import com.capgemini.repositories.CategoriesRepository;
 import com.capgemini.repositories.UserRepository;
 import com.capgemini.service.CategoriesService;
@@ -26,6 +27,16 @@ public class CategoriesServiceImpl implements CategoriesService{
 		}
 		throw new IllegalArgumentException("No existe la categoría");
 	}
+
+	@Override
+	public Categories findByPropietario(Propietario propietario) {
+		// TODO Auto-generated method stub
+		List<Categories> CategoriesPropietario = categoriesRepository.findByPropietario_ID(propietario);
+
+		
+		return null;
+	}
+
 	
 	
 }
