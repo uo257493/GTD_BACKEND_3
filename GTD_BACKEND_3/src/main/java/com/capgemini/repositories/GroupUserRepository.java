@@ -4,16 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Propietario;
-import com.capgemini.model.Users;
 
-public interface PropietarioRepository extends JpaRepository<Propietario, Long> {
+public interface GroupUserRepository extends JpaRepository<GroupUsers, Integer>{
 
+	//GroupUsers saveGroup(GroupUsers groupUsers);
 
-
-	Users getByPassword(String password);
-	
-	
-
-
-
+//	Propietario save(Propietario propietario);
 }

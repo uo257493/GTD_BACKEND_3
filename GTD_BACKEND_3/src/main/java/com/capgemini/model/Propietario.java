@@ -19,7 +19,7 @@ public class Propietario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String type;
+	public String type;
 
 	public Long getId() {
 		return id;

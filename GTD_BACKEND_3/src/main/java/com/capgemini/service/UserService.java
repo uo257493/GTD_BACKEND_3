@@ -1,41 +1,24 @@
 package com.capgemini.service;
 
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Users;
+import com.capgemini.repositories.GroupUserRepository;
 
 public interface UserService {
 
-//	Users getByPassword(String password);
-//
-	Users  save(Users users);
+	Users  save(Users users);	
 
+	GroupUsers save(GroupUsers groupUsers);
+	
+	void deleteById(int id);
+	
+	Optional<Users> findById(Long id);
 
-//
-//	List<Users> findAll();
-//
-//	Optional<Users> findById(Long id);
-//
-//	boolean existsById(Long id);
-//
-//	long count();
-//
-//	void deleteById(Long id);
-//
-//	void delete(Users users);
-//
-//	void deleteAll();
-//
-//	Users getById(Long id);
-//
-////	Users getAllExcept(String login);
-//
-////	Users getBySession(String login);
-//
-//	Users update(Long id, Users users);
-//
-////	List<Users> findAllExcept();
-//
-///@Override
-//boolean existsUser(Users users);
-//	
-
+	void deleteById(Long id);
+	
 }

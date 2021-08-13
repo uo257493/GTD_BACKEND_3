@@ -12,8 +12,8 @@ public class Groups extends Propietario {
 
 	private String nombre;
 	private String descripcion;
-	private boolean Admin;
 	private Date fechaCreacion;
+	
 
 	@OneToMany(mappedBy = "groups", cascade = CascadeType.ALL)
 	private List<GroupUsers> groupUsers;
@@ -34,14 +34,6 @@ public class Groups extends Propietario {
 		this.descripcion = descripcion;
 	}
 
-	public boolean isAdmin() {
-		return Admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		Admin = admin;
-	}
-
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
@@ -58,20 +50,29 @@ public class Groups extends Propietario {
 		this.groupUsers = groupUsers;
 	}
 
-	@Override
-	public String toString() {
-		return "Groups [nombre=" + nombre + ", descripcion=" + descripcion + ", Admin=" + Admin + ", fechaCreacion="
-				+ fechaCreacion + ", groupUsers=" + groupUsers + "]";
-	}
-
-	public Groups(Long id, String type, String nombre, String descripcion, boolean admin, Date fechaCreacion,
+	public Groups(Long id, String type, String nombre, String descripcion, Date fechaCreacion,
 			List<GroupUsers> groupUsers) {
 		super(id, type);
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		Admin = admin;
 		this.fechaCreacion = fechaCreacion;
 		this.groupUsers = groupUsers;
+	}
+
+
+	public Groups(Long id, String type, String nombre, String descripcion, Date fechaCreacion, Users usuarioPropietario,
+			List<GroupUsers> groupUsers) {
+		super(id, type);
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.fechaCreacion = fechaCreacion;
+		this.groupUsers = groupUsers;
+	}
+
+	@Override
+	public String toString() {
+		return "Groups [nombre=" + nombre + ", descripcion=" + descripcion + ", fechaCreacion=" + fechaCreacion
+				+ ", groupUsers=" + groupUsers + "]";
 	}
 
 	public Groups(Long id, String type) {
