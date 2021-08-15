@@ -2,14 +2,12 @@ package com.capgemini.model;
 
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 
 @Entity
@@ -31,16 +29,11 @@ public class Users extends Propietario{
 
     private String status;
 	
-	@Transient
-	private String password2;
+	
 	
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
 	private List<GroupUsers> groupUsers;
 
-	
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
 
 	public String getEmail() {
 		return email;
@@ -54,9 +47,6 @@ public class Users extends Propietario{
 		return isAdmin;
 	}
 
-	public String getPassword2() {
-		return password2;
-	}
 	
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
@@ -106,18 +96,17 @@ public class Users extends Propietario{
 	@Override
 	public String toString() {
 		return "Users [email=" + email + ", isAdmin=" + isAdmin + ", login=" + login + ", password=" + password
-				+ ", status=" + status + ", password2=" + password2 + ", groupUsers=" + groupUsers + "]";
+				+ ", status=" + status + ", groupUsers=" + groupUsers + "]";
 	}
 
 	public Users(Long id, String type, String email, boolean isAdmin, String login, String password, String status,
-			String password2, List<GroupUsers> groupUsers) {
+			 List<GroupUsers> groupUsers) {
 		super(id, type);
 		this.email = email;
 		this.isAdmin = isAdmin;
 		this.login = login;
 		this.password = password;
 		this.status = status;
-		this.password2 = password2;
 		this.groupUsers = groupUsers;
 	}
 

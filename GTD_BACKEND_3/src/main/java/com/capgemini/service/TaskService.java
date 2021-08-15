@@ -1,7 +1,6 @@
 package com.capgemini.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.capgemini.model.Tasks;
 
@@ -24,10 +23,11 @@ public interface TaskService {
 
 	/**
 	 * Lista las tareas de una
-	 * @param s, categoria
+	 * @param id, categoria
+	 * @param idUsuario, id del usuario
 	 * @param passedDate, indicando si quiere añadir las de dias pasados
 	 * @return lista de tareas
 	 */
-	List<Tasks> listTasks(Long s, boolean passedDate);
+	List<Tasks> listTasks(Long id, Long idUsuario, boolean passedDate);
 
 }

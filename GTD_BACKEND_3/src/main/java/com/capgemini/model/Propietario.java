@@ -11,6 +11,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Propietario {
@@ -43,10 +45,12 @@ public class Propietario {
 		this.type = type;
 	}
 
-	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "propietario", cascade = CascadeType.PERSIST)
+	@JsonManagedReference
 	private List<Categories> categories;
 
 	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Tasks> tasks;
 	
 	

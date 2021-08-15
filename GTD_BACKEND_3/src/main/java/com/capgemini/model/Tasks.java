@@ -11,9 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cascade;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tasks")
@@ -28,15 +29,15 @@ public class Tasks {
 	private String comments;
 
 	@Column(name = "created")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date created;
 
 	@Column(name = "finished")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date finished;
 
 	@Column(name = "planned")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date planned;
 
 	@Column(name = "title")
@@ -45,14 +46,14 @@ public class Tasks {
 	@Column(name = "observations")
 	private String observations;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "owner_id")
+	@ManyToOne( cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "owner_id",  referencedColumnName = "ID", nullable = true)
+	@JsonBackReference
 	private Propietario propietario;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "category_id")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "category_id", referencedColumnName = "ID", nullable = true)
+	@JsonBackReference
 	private Categories category;
 
 	public Tasks() {

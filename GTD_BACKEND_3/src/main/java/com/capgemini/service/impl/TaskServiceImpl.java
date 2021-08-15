@@ -1,14 +1,12 @@
 package com.capgemini.service.impl;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.model.Categories;
+import com.capgemini.model.Propietario;
 import com.capgemini.model.Tasks;
 import com.capgemini.repositories.TaskRepository;
 import com.capgemini.service.TaskService;
@@ -51,39 +49,51 @@ public class TaskServiceImpl implements TaskService {
 	 * Lista las tareas en funcion a su categorias
 	 */
 	@Override 
-	public List<Tasks> listTasks(Long id, boolean passedDate){
+	public List<Tasks> listTasks(Long id, Long idUsuario, boolean passedDate){
+//		if(1==1)
+//			return taskRepository.findByPropietarioAndCategoryOrderByPlannedAsc(new Propietario(1L, null), null);
 		String name = "";
-		if(id==-1)
+		if(id==0)
 			name="inbox";
-		else if(id==-2)
+		else if(id==1)
 			name="hoy";
 		
 		if(!passedDate) {
 			if(name.equals("inbox")) {
+				Propietario p = new Propietario();
+				p.setId(idUsuario);
 				Categories categories = new Categories();
 				categories.setId(null);
-				return taskRepository.findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(categories, new java.sql.Date(System.currentTimeMillis()));}
+				return taskRepository.findByPropietarioAndCategoryAndPlannedGreaterThanEqualOrPlannedEqualsAndPropietarioOrderByPlannedAsc(p, null, new java.sql.Date(System.currentTimeMillis()), null, p);}
 			else if (name.equals("hoy")) {
-				return taskRepository.findByPlannedEqualsOrderByPlannedAsc(new java.sql.Date(System.currentTimeMillis()));
+				Propietario p = new Propietario();
+				p.setId(idUsuario);
+				return taskRepository.findByPropietarioAndPlannedGreaterThanEqualOrPlannedEqualsAndPropietarioOrderByPlannedAsc(p, new java.sql.Date(System.currentTimeMillis()), null, p);
 			}
 			else {
 			
-				Categories categories = null; //categoryRepository.getById(id)
-				return taskRepository.findByCategoryAndPlannedGreaterThanEqualOrderByPlannedAsc(categories, new java.sql.Date(System.currentTimeMillis()));
+				Categories categories = new Categories(); //categoryRepository.getById(id)
+				categories.setId(id);
+				return taskRepository.findByCategoryAndPlannedGreaterThanEqualOrPlannedEqualsOrderByPlannedAsc(categories, new java.sql.Date(System.currentTimeMillis()), null);
 				
 			}
 		}
 		else {
 			if(name.equals("inbox")) {
+				Propietario p = new Propietario();
+				p.setId(idUsuario);
 				Categories categories = new Categories();
 				categories.setId(null);
-				return taskRepository.findByCategoryOrderByPlannedAsc(categories);}
+				return taskRepository.findByPropietarioAndCategoryOrderByPlannedAsc(p, null);}
 			else if (name.equals("hoy")) {
-				return taskRepository.findByPlannedGreaterThanEqualOrderByPlannedAsc(null);
+				Propietario p = new Propietario();
+				p.setId(idUsuario);
+				return taskRepository.findByPropietarioAndPlannedEqualsOrderByPlannedAsc(p, new java.sql.Date(System.currentTimeMillis()));
 			}
 			else {
 			
-				Categories categories = null; //categoryRepository.getById(id)
+				Categories categories = new Categories(); //categoryRepository.getById(id)
+				categories.setId(id);
 				return taskRepository.findByCategoryOrderByPlannedAsc(categories);
 			}
 				

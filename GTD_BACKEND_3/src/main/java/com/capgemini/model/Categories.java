@@ -15,7 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "categories")
@@ -29,12 +30,14 @@ public class Categories {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "user_id")
-	private Users user;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	
+	@JoinColumn(name = "propietario_id", referencedColumnName = "id")
+	@JsonBackReference
+	private Propietario propietario;
 
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+	@JsonManagedReference
 	private List<Tasks> tasks;
 
 	public Categories() {
@@ -65,12 +68,14 @@ public class Categories {
 		this.name = name;
 	}
 
-	public Users getUser() {
-		return user;
+	
+
+	public Propietario getPropietario() {
+		return propietario;
 	}
 
-	public void setUser(Users user) {
-		this.user = user;
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
 	}
 
 	public List<Tasks> getTasks() {
@@ -89,9 +94,10 @@ public class Categories {
 		task.setCategory(this);
 	}
 
+	
 	@Override
 	public String toString() {
-		return "categoriesVO [id=" + id + ", name=" + name + ", userId=" + "]";
+		return "Categories [id=" + id + ", name=" + name + ", propietario=" + propietario + ", tasks=" + tasks + "]";
 	}
 
 	@Override
