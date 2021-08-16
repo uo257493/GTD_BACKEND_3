@@ -1,6 +1,9 @@
 package com.capgemini.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Propietario;
@@ -8,6 +11,7 @@ import com.capgemini.repositories.GroupUserRepository;
 import com.capgemini.repositories.PropietarioRepository;
 import com.capgemini.service.PropietarioService;
 
+@Service
 public class PropietarioServiceImpl implements PropietarioService {
 
 	@Autowired
@@ -15,6 +19,7 @@ public class PropietarioServiceImpl implements PropietarioService {
 	
 	@Autowired
 	private GroupUserRepository groupUserRepository;
+	
 
 	@Override
 	public Propietario save(Propietario propietario) {
@@ -39,5 +44,19 @@ public class PropietarioServiceImpl implements PropietarioService {
 		// TODO Auto-generated method stub
 		return groupUserRepository.save(groupUsers);
 	}
+
+	@Override
+	public Optional<Propietario> findByIdNot(Long id) {
+		// TODO Auto-generated method stub
+		return propietarioRepository.findByIdNot(id);
+	}
+
+
+
+	
+	
+
+
+
 
 }

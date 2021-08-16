@@ -1,7 +1,12 @@
 package com.capgemini.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Propietario;
+import com.capgemini.model.Users;
 
 public interface PropietarioService {
 
@@ -12,4 +17,7 @@ public interface PropietarioService {
 	void deleteById(Long id);
 	
 	GroupUsers saveGroup(GroupUsers groupUsers);
+
+	Optional<Propietario> findByIdNot(Long id);
+	
 }

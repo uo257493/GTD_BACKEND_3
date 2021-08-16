@@ -1,11 +1,13 @@
 package com.capgemini.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.model.GroupUsers;
+import com.capgemini.model.Propietario;
 import com.capgemini.model.Users;
 import com.capgemini.repositories.GroupUserRepository;
 import com.capgemini.repositories.UserRepository;
@@ -58,6 +60,8 @@ public class UserServiceImpl implements UserService {
 		userRepository.findById(id);
 	}
 
+
+
 //	@Override
 //	public void deleteById(Long id) {
 //		// TODO Auto-generated method stub
@@ -65,6 +69,6 @@ public class UserServiceImpl implements UserService {
 //	}
 
 
-	
+
 
 }

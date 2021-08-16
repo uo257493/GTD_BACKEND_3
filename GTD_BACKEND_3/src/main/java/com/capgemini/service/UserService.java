@@ -1,6 +1,7 @@
 package com.capgemini.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,7 @@ public interface UserService {
 	Optional<Users> findById(Long id);
 
 	void deleteById(Long id);
-	
+
+
+	//List<Users> findById(Long id);
 }
