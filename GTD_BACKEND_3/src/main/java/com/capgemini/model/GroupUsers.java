@@ -1,5 +1,7 @@
 package com.capgemini.model;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +21,12 @@ public class GroupUsers {
 	@Column(name="status_accept")
 	private boolean statusAccept;
 	
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
 	private Users users;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn (name="id_group")
 	private Groups groups;
 
@@ -87,5 +90,26 @@ public class GroupUsers {
 		super();
 	}
 	
+	@Column(name="is_admin")
+	private boolean isAdmin;
 	
+
+	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public GroupUsers(int idGroupUser, boolean statusAccept, Users users, Groups groups, boolean isAdmin) {
+		super();
+		this.idGroupUser = idGroupUser;
+		this.statusAccept = statusAccept;
+		this.users = users;
+		this.groups = groups;
+		this.isAdmin = isAdmin;
+	}
+
 }

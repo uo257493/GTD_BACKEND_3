@@ -13,6 +13,10 @@ import javax.persistence.OneToMany;
 
 import org.springframework.data.rest.core.annotation.RestResource;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 @Entity
 //@RestResource(rel="propietario", path="propietario")
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -46,10 +50,13 @@ public class Propietario {
 		this.type = type;
 	}
 
+
 	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Categories> categories;
 
 	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Tasks> tasks;
 	
 	

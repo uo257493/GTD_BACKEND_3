@@ -79,7 +79,9 @@ public class WebSecurityConfig {
 					if(!groupU.isPresent())
 						return false;
 					else {
-						return groupU.get().isUsuario();
+
+
+						return groupU.get().isAdmin();
 					}
 				}
 				else

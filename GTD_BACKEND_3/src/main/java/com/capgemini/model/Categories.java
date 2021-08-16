@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 //@RestResource(rel="categorias", path="categorias")
 @Table(name = "categories")
@@ -31,12 +34,16 @@ public class Categories {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST })
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "propietario_id")
+	@JoinColumn(name = "propietario_id", referencedColumnName = "id")
+	@JsonBackReference
+
 	private Propietario propietario;
 
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+	@JsonManagedReference
 	private List<Tasks> tasks;
 
 	public Categories() {

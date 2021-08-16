@@ -11,4 +11,8 @@ import com.capgemini.model.Users;
 public interface GroupUsersRepository extends JpaRepository<GroupUsers, Long> {
 
 	public Optional<GroupUsers> findByUsersAndGroups(Users users, Groups groups);
+
 }
+
+
+

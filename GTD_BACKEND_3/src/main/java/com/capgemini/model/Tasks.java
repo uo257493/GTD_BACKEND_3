@@ -1,7 +1,6 @@
 package com.capgemini.model;
 
 import java.util.Date;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,10 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 import org.hibernate.annotations.Cascade;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 //@RestResource(rel="tareas", path="tareas")
@@ -31,15 +36,15 @@ public class Tasks {
 	private String comments;
 
 	@Column(name = "created")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date created;
 
 	@Column(name = "finished")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date finished;
 
 	@Column(name = "planned")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date planned;
 
 	@Column(name = "title")
@@ -48,42 +53,29 @@ public class Tasks {
 	@Column(name = "observations")
 	private String observations;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "propietario_id")
+
+	@ManyToOne( cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "owner_id",  referencedColumnName = "ID", nullable = true)
+	@JsonBackReference
 	private Propietario propietario;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "category_id")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "category_id", referencedColumnName = "ID", nullable = true)
+	@JsonBackReference
 	private Categories category;
 
 	public Tasks() {
 	}
 
-	public Tasks(String comments, Date created, Date finished, Date planned, String title, Long categoryId,
-			Long userId, String observations) {
-		this.comments = comments;
-		this.created = created;
-		this.finished = finished;
-		this.planned = planned;
-		this.title = title;
-		this.observations = observations;
-	}
-
-	public Tasks(Long id, String comments, Date created, Date finished, Date planned, String title, Long categoryId,
-			Long userId, String observations) {
-		this.id = id;
-		this.comments = comments;
-		this.created = created;
-		this.finished = finished;
-		this.planned = planned;
-		this.title = title;
-		this.observations = observations;
-	}
-
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Tasks [id=" + id + ", comments=" + comments + ", created=" + created + ", finished=" + finished
+				+ ", planned=" + planned + ", title=" + title + ", observations=" + observations + ", propietario="
+				+ propietario + ", category=" + category + "]";
 	}
 
 	public void setId(Long id) {
@@ -138,15 +130,6 @@ public class Tasks {
 		this.observations = observations;
 	}
 
-	
-
-	public Propietario getPropietario() {
-		return propietario;
-	}
-
-	public void setPropietario(Propietario propietario) {
-		this.propietario = propietario;
-	}
 
 	public Categories getCategory() {
 		return category;
@@ -156,26 +139,14 @@ public class Tasks {
 		this.category = category;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(category, comments, created, finished, id, observations, planned, propietario, title);
+	public Propietario getPropietario() {
+		return propietario;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Tasks other = (Tasks) obj;
-		return Objects.equals(category, other.category) && Objects.equals(comments, other.comments)
-				&& Objects.equals(created, other.created) && Objects.equals(finished, other.finished)
-				&& Objects.equals(id, other.id) && Objects.equals(observations, other.observations)
-				&& Objects.equals(planned, other.planned) && Objects.equals(propietario, other.propietario)
-				&& Objects.equals(title, other.title);
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
 	}
+
 
 
 }
