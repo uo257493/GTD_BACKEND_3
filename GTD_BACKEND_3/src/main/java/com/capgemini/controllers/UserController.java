@@ -46,6 +46,7 @@ public class UserController {
 
 	@Autowired
 	GroupService gs;
+	
 
 	/**
 	 * add user if usser it's a group, add group too
@@ -151,6 +152,7 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> usersDetails(@PathVariable Long id) {
+		
 		return new ResponseEntity<>(pr.findById(id), HttpStatus.OK);
 	}
 

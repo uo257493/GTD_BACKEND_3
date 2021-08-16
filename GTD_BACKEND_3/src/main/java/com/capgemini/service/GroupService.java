@@ -22,4 +22,11 @@ public interface GroupService {
 	
 	public List<Groups> findByFechaCreacion(Date fechaCreacion);
 	
+	long count();
+	
+	void deleteById(Integer id);
+	
+	void delete(Groups entity);
+	
+	void deleteAll();
 }

@@ -56,6 +56,27 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 
+	public List<Groups> findAll() {
+		return groupRepository.findAll();
+	}
+
+	public long count() {
+		return groupRepository.count();
+	}
+
+	public void deleteById(Integer id) {
+		groupRepository.deleteById(id);
+	}
+
+	public void delete(Groups entity) {
+		groupRepository.delete(entity);
+	}
+
+	public void deleteAll() {
+		groupRepository.deleteAll();
+	}
+
+
 	
 	
 }
