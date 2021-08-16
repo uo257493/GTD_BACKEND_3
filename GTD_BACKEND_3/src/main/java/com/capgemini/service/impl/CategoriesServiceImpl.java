@@ -35,6 +35,12 @@ public class CategoriesServiceImpl implements CategoriesService{
 		return categoriesRepository.findByPropietario(p);
 	}
 
+	@Override
+	public List<Categories> findByName(String name) {
+		
+		return categoriesRepository.findByName(name);
+	}
+
 
 	
 	

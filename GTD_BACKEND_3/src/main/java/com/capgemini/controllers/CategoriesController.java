@@ -22,7 +22,7 @@ public class CategoriesController {
 
 
 
-	@GetMapping("/{id}")
+	@GetMapping("/byid/{id}")
 	public Categories findById(@PathVariable Long id) {
 		return categoriesService.findById(id);
 	}
@@ -32,9 +32,9 @@ public class CategoriesController {
 		return categoriesService.findByPropietario(id);
 	}
 
-//	@GetMapping("/byname/{name}")
-//	public Categories findByName(@PathVariable String name){
-//		return categoriesService.findByName(name);
-//	}
+	@GetMapping("/byname/{name}")
+	public List<Categories> findByName(@PathVariable String name){
+		return categoriesService.findByName(name);
+	}
 	
 }

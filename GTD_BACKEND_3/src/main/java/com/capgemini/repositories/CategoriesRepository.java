@@ -18,4 +18,6 @@ public interface CategoriesRepository extends JpaRepository<Categories, Long>{
 	 * obtiene categorias por ID propietario
 	 */
 	public List<Categories> findByPropietario(Propietario propiedario);
+	
+	public List<Categories> findByName(String name);
 }
