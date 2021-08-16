@@ -41,4 +41,11 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 	public List<Users> findByStatusIgnoreCaseContaining(String status);
 	
 
+	/**
+	 * get all except  x param
+	 * @param id
+	 * @return
+	 */
+	Optional<Users> findByIdNot(Long id);
+
 }

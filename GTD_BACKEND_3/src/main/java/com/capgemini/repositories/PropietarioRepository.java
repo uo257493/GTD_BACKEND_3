@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Groups;
 import com.capgemini.model.Propietario;
 import com.capgemini.model.Users;
@@ -65,10 +66,13 @@ public interface PropietarioRepository extends JpaRepository<Propietario, Long> 
 	 */
 	
 	public List<Groups> findByFechaCreacion(Date fechaCreacion);
-
 	
-	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	Optional<Propietario> findByIdNot(Long id);
-	
 
+	
 }

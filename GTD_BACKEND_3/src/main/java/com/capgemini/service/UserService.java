@@ -21,7 +21,13 @@ public interface UserService {
 	Optional<Users> findById(Long id);
 
 	void deleteById(Long id);
+	
 
-
+	List <Users> findByLoginIgnoreCaseContaining(String login);
+	
+	
+	List<Users> findByEmailIgnoreCaseContaining(String email);
+	
+	List<Users> findByStatusIgnoreCaseContaining(String status);
 	//List<Users> findById(Long id);
 }

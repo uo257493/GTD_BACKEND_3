@@ -60,13 +60,28 @@ public class UserServiceImpl implements UserService {
 		userRepository.findById(id);
 	}
 
+	@Override
+	public List<Users> findByLoginIgnoreCaseContaining(String login) {
+		// TODO Auto-generated method stub
+		return userRepository.findByLoginIgnoreCaseContaining(login);
+	}
+
+	@Override
+	public List<Users> findByEmailIgnoreCaseContaining(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.findByEmailIgnoreCaseContaining(email);
+	}
+
+	@Override
+	public List<Users> findByStatusIgnoreCaseContaining(String status) {
+		// TODO Auto-generated method stub
+		return userRepository.findByStatusIgnoreCaseContaining(status);
+	}
 
 
-//	@Override
-//	public void deleteById(Long id) {
-//		// TODO Auto-generated method stub
-//		return userRepository.findById(id);
-//	}
+
+
+
 
 
 

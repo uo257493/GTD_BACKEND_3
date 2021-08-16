@@ -3,6 +3,8 @@ package com.capgemini.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.model.GroupUsers;
@@ -33,6 +33,9 @@ import com.capgemini.service.UserService;
 public class UserController {
 
 	@Autowired
+	private HttpSession httpSession;
+
+	@Autowired
 	UserRepository ur;
 
 	@Autowired
@@ -40,7 +43,7 @@ public class UserController {
 
 	@Autowired
 	UserService us;
-	
+
 	@Autowired
 	GroupService gs;
 
@@ -123,28 +126,28 @@ public class UserController {
 
 		return "Eliminado propietario id - " + id;
 	}
-	// eliminar grupo
-	@DeleteMapping("deletegroup/{id}")
-	public String deletegroup(@PathVariable Long id) {
-
-		Optional<Groups> propietario = gs.findById(id);
-
-		if (propietario == null) {
-			throw new RuntimeException("Id del propietario no encontrado -" + id);
-		}
-
-		gs.deleteById(id);
-
-		return "Eliminado propietario id - " + id;
-	}
-	
-
 	/**
-	 * find user by id
+	 * delete group
 	 * @param id
 	 * @return
 	 */
+	
+	 @DeleteMapping("/deleteGroup/{id}")
+	    public ResponseEntity<?> delete(@PathVariable Long id) {
+	        if (gs.findById(id).isPresent()) {
+	            gs.deleteById(id);
+	            return ResponseEntity.noContent().build();
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }   
+	    }
 
+	/**
+	 * find user by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> usersDetails(@PathVariable Long id) {
@@ -153,17 +156,19 @@ public class UserController {
 
 	/**
 	 * find owner by id
+	 * 
 	 * @param id
 	 * @return
 	 */
-	
+
 	@GetMapping("/propietario/{id}")
 	public ResponseEntity<?> propietarioDetails(@PathVariable Long id) {
 		return new ResponseEntity<>(pr.findById(id), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * find all
+	 * 
 	 * @param propietario
 	 * @return
 	 */
@@ -173,23 +178,24 @@ public class UserController {
 
 	}
 
-	// get all
+	/**
+	 * get all
+	 * @return
+	 */
 
 	@GetMapping("/todo")
 	public List<Propietario> getPropietarios() {
 		return pr.findAll();
 	}
 
-	// get all except lo que pasemos por parametro
-
 	/**
-	 * update status, 
-	 * if status is disabled put enabled and vice versa
+	 * update status, if status is disabled put enabled and vice versa
+	 * 
 	 * @param id
 	 * @param users
 	 * @return
 	 */
-	
+
 	@PutMapping("/modificarEstado/{id}")
 	public String putMethod1(@PathVariable Long id, @RequestBody Users users) {
 		Users s = us.findById(id).get();
@@ -206,13 +212,13 @@ public class UserController {
 	}
 
 	/**
-	 * update users
-	 * set admin false
+	 * update users set admin false
+	 * 
 	 * @param id
 	 * @param users
 	 * @return
 	 */
-	
+
 	@PutMapping("/modificar/{id}")
 	public String putMethod(@PathVariable Long id, @RequestBody Users users) {
 		Users s = us.findById(id).get();
@@ -226,9 +232,10 @@ public class UserController {
 
 		return "usuario actualizado";
 	}
-	
+
 	/**
 	 * check if users exists in system
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -240,10 +247,11 @@ public class UserController {
 
 	/**
 	 * get password from a user
+	 * 
 	 * @param id
 	 * @return
 	 */
-	
+
 	@GetMapping("/password/{id}")
 	public ResponseEntity<?> usersDetailsUser(@PathVariable Long id) {
 		return new ResponseEntity<>(us.findById(id).get().getPassword(), HttpStatus.OK);
@@ -251,34 +259,45 @@ public class UserController {
 
 	/**
 	 * get Login from a user
+	 * 
 	 * @param id
 	 * @return
 	 */
-	
+
 	@GetMapping("/login/{id}")
 	public ResponseEntity<?> userDetailsLogin(@PathVariable Long id) {
 		return new ResponseEntity<>(us.findById(id).get().getLogin(), HttpStatus.OK);
 	}
 
-	// devolver el id a partir del login del usuario, getsession
-
-	
 	/**
 	 * insert users , only users not groups
+	 * 
 	 * @param users
 	 */
-	
+
 	@PostMapping("/saveUser")
 	public void guardar(@RequestBody Users users) {
 		pr.save(users);
 	}
 
-	// pruebas
-	// eliminar propietario por id, inlcuye usuario y grupo
-	@DeleteMapping("/eliminar/{id}")
-	public void eliminar(@PathVariable("id") Long id) {
-		pr.deleteById(id);
+	private boolean router(HttpSession session) {
+
+		if (session == null)
+			return false;
+		Long sessionId = (Long) session.getAttribute("usuario");
+		if (sessionId == null)
+			return false;
+
+		else
+			return true;
 	}
 
+	private Long activeUserRouter(HttpSession session) {
+
+		if (router(session))
+			return (long) session.getAttribute("usuario");
+		else
+			return 1L;
+	}
 
 }
