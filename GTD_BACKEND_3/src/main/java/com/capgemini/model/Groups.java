@@ -7,7 +7,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 @Entity
+//@RestResource(rel="grupos", path="grupos")
 public class Groups extends Propietario {
 
 	private String nombre;

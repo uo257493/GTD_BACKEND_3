@@ -9,8 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 
 @Entity
+//@RestResource(rel="usuarios", path="usuarios")
 @Table(name = "users")
 public class Users extends Propietario{
 

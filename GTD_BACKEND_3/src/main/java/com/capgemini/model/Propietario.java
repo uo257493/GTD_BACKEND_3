@@ -11,7 +11,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 @Entity
+//@RestResource(rel="propietario", path="propietario")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Propietario {
 

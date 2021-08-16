@@ -17,11 +17,28 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 	Propietario delete(Propietario propietario);
 
 	Optional<Users> findById(Long id);
-
-	public List <Users> findByLoginIgnoreCaseContaining(@Param("login") String login);
 	
+	/**
+	 * find user by login
+	 * @param login
+	 * @return
+	 */
 
+	public List <Users> findByLoginIgnoreCaseContaining(String login);
 	
-//	List<Users> ListUsuarios(Long id);
+	/**
+	 * find user by email
+	 * @param email
+	 * @return
+	 */
+	public List<Users> findByEmailIgnoreCaseContaining(String email);
+	
+	/**
+	 * find useer by status
+	 * @param status
+	 * @return
+	 */
+	public List<Users> findByStatusIgnoreCaseContaining(String status);
+	
 
 }

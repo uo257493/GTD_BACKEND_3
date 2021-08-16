@@ -14,9 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+//@RestResource(rel="tareas", path="tareas")
 @Table(name = "tasks")
 public class Tasks {
 

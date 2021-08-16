@@ -16,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 @Entity
+//@RestResource(rel="categorias", path="categorias")
 @Table(name = "categories")
 public class Categories {
 
