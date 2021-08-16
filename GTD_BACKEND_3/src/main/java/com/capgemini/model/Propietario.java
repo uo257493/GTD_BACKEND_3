@@ -11,18 +11,22 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+
 @Entity
+//@RestResource(rel="propietario", path="propietario")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Propietario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private String type;
+	
+	public String type;
 
 	public Long getId() {
 		return id;
@@ -54,8 +58,8 @@ public class Propietario {
 	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<Tasks> tasks;
-
-
+	
+	
 	public List<Categories> getCategories() {
 		return categories;
 	}
@@ -95,6 +99,7 @@ public class Propietario {
 	public Propietario() {
 		super();
 	}
+	
+	
+	
 }
-
-

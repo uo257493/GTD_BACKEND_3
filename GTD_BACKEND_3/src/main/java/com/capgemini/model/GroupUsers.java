@@ -16,6 +16,8 @@ public class GroupUsers {
 	@GeneratedValue
 	private int idGroupUser;
 	
+	private boolean usuario;
+	
 	@Column(name="status_accept")
 	private boolean statusAccept;
 	
@@ -27,9 +29,14 @@ public class GroupUsers {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn (name="id_group")
 	private Groups groups;
-	
-	@Column(name="is_admin")
-	private boolean isAdmin;
+
+	public boolean isUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(boolean usuario) {
+		this.usuario = usuario;
+	}
 
 	public int getIdGroupUser() {
 		return idGroupUser;
@@ -63,6 +70,31 @@ public class GroupUsers {
 		this.groups = groups;
 	}
 
+
+	public GroupUsers(int idGroupUser, boolean usuario, boolean statusAccept, Users users, Groups groups) {
+		super();
+		this.idGroupUser = idGroupUser;
+		this.usuario = usuario;
+		this.statusAccept = statusAccept;
+		this.users = users;
+		this.groups = groups;
+	}
+
+	@Override
+	public String toString() {
+		return "GroupUsers [idGroupUser=" + idGroupUser + ", usuario=" + usuario + ", statusAccept=" + statusAccept
+				+ ", users=" + users + ", groups=" + groups + "]";
+	}
+
+	public GroupUsers() {
+		super();
+	}
+	
+	@Column(name="is_admin")
+	private boolean isAdmin;
+	
+
+	
 	public boolean isAdmin() {
 		return isAdmin;
 	}
@@ -80,13 +112,4 @@ public class GroupUsers {
 		this.isAdmin = isAdmin;
 	}
 
-	public GroupUsers() {
-	}
-
-	@Override
-	public String toString() {
-		return "GroupUsers [idGroupUser=" + idGroupUser + ", statusAccept=" + statusAccept + ", users=" + users
-				+ ", groups=" + groups + ", isAdmin=" + isAdmin + "]";
-	}
-	
 }

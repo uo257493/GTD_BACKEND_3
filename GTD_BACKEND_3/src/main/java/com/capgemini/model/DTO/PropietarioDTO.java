@@ -4,11 +4,12 @@ import java.sql.Date;
 import java.util.List;
 
 import com.capgemini.model.GroupUsers;
+import com.capgemini.model.Users;
 
 public class PropietarioDTO {
 
 	public Long id;
-	public String type;
+	public String type = "usuario";
 	public String email;
 	public boolean isAdmin;
 	public String login;
@@ -20,7 +21,7 @@ public class PropietarioDTO {
 	public List<GroupUsers> groupUsers;
 	public String nombre;
 	public String descripcion;
-	public boolean Admin;
 	public Date fechaCreacion;
+	public Users usuarioPropietario;
 
 }

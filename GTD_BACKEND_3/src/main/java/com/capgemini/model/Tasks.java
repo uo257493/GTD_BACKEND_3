@@ -14,9 +14,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+import org.hibernate.annotations.Cascade;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 @Entity
+//@RestResource(rel="tareas", path="tareas")
 @Table(name = "tasks")
 public class Tasks {
 

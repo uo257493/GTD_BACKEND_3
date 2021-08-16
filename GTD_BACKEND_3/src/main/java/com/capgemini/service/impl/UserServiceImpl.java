@@ -1,47 +1,28 @@
 package com.capgemini.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Propietario;
 import com.capgemini.model.Users;
+import com.capgemini.repositories.GroupUserRepository;
 import com.capgemini.repositories.UserRepository;
 import com.capgemini.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository; 
-//	Users getByPassword(String password);
-//
-	//Propietario  save(Propietario propietario);
-//
-//	List<Users> findAll();
-//
-//	Optional<Users> findById(Long id);
-//
-//	boolean existsById(Long id);
-//
-//	long count();
-//
-//	void deleteById(Long id);
-//
-//	void delete(Users users);
-//
-//	void deleteAll();
-//
-//	Users getById(Long id);
-//
-////	Users getAllExcept(String login);
-//
-////	Users getBySession(String login);
-//
-//	Users update(Long id, Users users);
-//
-////	List<Users> findAllExcept();
-//
-//@Override
-//boolean existsUser(Users users);
 	
+	@Autowired
+	private GroupUserRepository groupUserRepository;
+	
+
 
 
 	@Override
@@ -49,5 +30,60 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userRepository.save(users);
 	}
+	
+	@Override 
+	public GroupUsers save(GroupUsers groupUsers) {
+		return groupUserRepository.save(groupUsers);
+	}
+//
+//	@Override
+//	public List<Users> ListUsusarios(Long id) {
+//		// TODO Auto-generated method stub
+//		return userRepository.ListUsuarios(id);
+//	}
+
+	@Override
+	public void deleteById(int id) {
+		// TODO Auto-generated method stub
+		userRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<Users> findById(Long id) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(id);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		// TODO Auto-generated method stub
+		userRepository.findById(id);
+	}
+
+	@Override
+	public List<Users> findByLoginIgnoreCaseContaining(String login) {
+		// TODO Auto-generated method stub
+		return userRepository.findByLoginIgnoreCaseContaining(login);
+	}
+
+	@Override
+	public List<Users> findByEmailIgnoreCaseContaining(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.findByEmailIgnoreCaseContaining(email);
+	}
+
+	@Override
+	public List<Users> findByStatusIgnoreCaseContaining(String status) {
+		// TODO Auto-generated method stub
+		return userRepository.findByStatusIgnoreCaseContaining(status);
+	}
+
+
+
+
+
+
+
+
 
 }
