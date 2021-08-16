@@ -8,6 +8,7 @@ import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Propietario;
 import com.capgemini.model.Users;
 
+
 public interface PropietarioService {
 
 	Propietario  save(Propietario propietario);
@@ -19,5 +20,9 @@ public interface PropietarioService {
 	GroupUsers saveGroup(GroupUsers groupUsers);
 
 	Optional<Propietario> findByIdNot(Long id);
+	
+	List <Propietario> findAll();
+
+	Propietario findById(Long id);
 	
 }

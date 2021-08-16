@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.WebSecurityConfig;
 import com.capgemini.model.GroupUsers;
 import com.capgemini.model.Groups;
 import com.capgemini.model.Propietario;
@@ -27,6 +28,7 @@ import com.capgemini.repositories.PropietarioRepository;
 import com.capgemini.repositories.UserRepository;
 import com.capgemini.service.GroupService;
 import com.capgemini.service.UserService;
+
 
 @RestController
 @RequestMapping("/users")
@@ -47,6 +49,8 @@ public class UserController {
 	@Autowired
 	GroupService gs;
 	
+	@Autowired
+	WebSecurityConfig config;
 
 	/**
 	 * add user if usser it's a group, add group too
@@ -165,7 +169,12 @@ public class UserController {
 
 	@GetMapping("/propietario/{id}")
 	public ResponseEntity<?> propietarioDetails(@PathVariable Long id) {
+		//return new ResponseEntity<>(pr.findById(id), HttpStatus.OK);
+//		if(!config.authRouter(httpSession))
+//			return new ResponseEntity<List<Propietario>>(HttpStatus.FORBIDDEN);
+
 		return new ResponseEntity<>(pr.findById(id), HttpStatus.OK);
+		//return new ResponseEntity<Propietario>(pr.findById(id), HttpStatus.ACCEPTED); 
 	}
 
 	/**
@@ -278,8 +287,15 @@ public class UserController {
 	 */
 
 	@PostMapping("/saveUser")
-	public void guardar(@RequestBody Users users) {
-		pr.save(users);
+	public ResponseEntity<Users> guardar(@RequestBody Users users) {
+		if(!config.authRouter(httpSession))
+			return new ResponseEntity<Users>(HttpStatus.FORBIDDEN);
+		try {
+			return new ResponseEntity<Users>(pr.save(users), HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Users>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
  
 	private boolean router(HttpSession session) {

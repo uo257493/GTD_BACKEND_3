@@ -74,5 +74,6 @@ public interface PropietarioRepository extends JpaRepository<Propietario, Long> 
 	 */
 	Optional<Propietario> findByIdNot(Long id);
 
+
 	
 }

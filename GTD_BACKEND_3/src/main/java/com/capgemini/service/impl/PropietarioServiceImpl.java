@@ -1,5 +1,6 @@
 package com.capgemini.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,24 @@ public class PropietarioServiceImpl implements PropietarioService {
 		return propietarioRepository.findByIdNot(id);
 	}
 
+	
+
+	@Override
+	public Propietario findById(Long id) {
+		Optional<Propietario> propietario = propietarioRepository.findById(id);
+		if(propietario.isPresent()== false) {
+			return null;
+		}
+		return propietario.get();
+	}
+
+	@Override
+	public List<Propietario> findAll() {
+		// TODO Auto-generated method stub
+		return propietarioRepository.findAll();
+	}
+
+	
 
 
 	
