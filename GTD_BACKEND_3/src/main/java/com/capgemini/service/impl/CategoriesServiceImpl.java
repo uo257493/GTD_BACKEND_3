@@ -41,7 +41,14 @@ public class CategoriesServiceImpl implements CategoriesService{
 		return categoriesRepository.findByName(name);
 	}
 
+	@Override
+	public <S extends Categories> S save(S entity) {
+		return categoriesRepository.save(entity);
+	}
 
+	public boolean isPresent(Long id) {
+		return categoriesRepository.findById(id).isPresent();
+	}
 	
 	
 }

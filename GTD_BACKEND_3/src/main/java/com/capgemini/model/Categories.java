@@ -51,10 +51,13 @@ public class Categories {
 		this.name = name;
 	}
 
-	public Categories(Long id, String name) {
+	public Categories(Long id, String name, Propietario propietario) {
 		this.id = id;
 		this.name = name;
+		this.propietario = propietario;
 	}
+	
+	
 
 	public Long getId() {
 		return id;

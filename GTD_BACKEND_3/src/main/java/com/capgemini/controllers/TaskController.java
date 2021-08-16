@@ -29,26 +29,26 @@ public class TaskController {
 
 	@Autowired
 	private HttpSession httpSession;
-	
+
 	@Autowired
 	TaskService service;
-	
+
 	@Autowired
 	WebSecurityConfig config;
-	
+
 	@GetMapping("/listTasks/{id}")
 	public ResponseEntity<List<Tasks>> listTasks(@PathVariable Long id, @RequestParam boolean pastDate){
-//		if(!router(httpSession))
-//			return new ArrayList<Tasks>();
+		//		if(!router(httpSession))
+		//			return new ArrayList<Tasks>();
 		if(!config.authRouter(httpSession))
 			return new ResponseEntity<List<Tasks>>(HttpStatus.FORBIDDEN);
 		Long propietarioId = 1L;
 		if(router(httpSession))
 			propietarioId = activeUserRouter(httpSession);
-		
+
 		return new ResponseEntity<List<Tasks>>(service.listTasks(id, propietarioId ,pastDate), HttpStatus.ACCEPTED); 
 	}
-	
+
 	@PutMapping("/editTask/{id}")
 	public ResponseEntity<Tasks> editTasks(@RequestAttribute Long id, @RequestBody Tasks tasks){
 		if(!config.authRouter(httpSession))
@@ -56,7 +56,7 @@ public class TaskController {
 		tasks.setId(id);
 		if(tasks.getPlanned().getTime() <= (new Date(System.currentTimeMillis())).getTime())
 			tasks.setPlanned(new java.util.Date());
-		
+
 		try {
 			return new ResponseEntity<Tasks>(service.save(tasks), HttpStatus.ACCEPTED);
 		} catch (Exception e) {
@@ -64,19 +64,19 @@ public class TaskController {
 		}
 		return new ResponseEntity<Tasks>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@PostMapping("/addTask")
 	public ResponseEntity<Tasks> addTasks( @RequestBody Tasks tasks){
 		if(!config.authRouter(httpSession))
 			return new ResponseEntity<Tasks>(HttpStatus.FORBIDDEN);
-		//Mirar que exista el id y que si es de usuario concuerde con la sesion y si es grupo lo tenga el usuario
+		//Mirad que exista el id y que si es de usuario concuerde con la sesion y si es grupo lo tenga el usuario
 		Tasks t = new Tasks();
 		t.setCategory(null);
 		t.setCreated(new Date(System.currentTimeMillis()));
 		t.setTitle(tasks.getTitle());
 		//if(router(httpSession))
-			t.setPropietario(new Propietario(activeUserRouter(httpSession), null));
-		
+		t.setPropietario(new Propietario(activeUserRouter(httpSession), null));
+
 		try {
 			return new ResponseEntity<Tasks>(service.save(t), HttpStatus.ACCEPTED);
 		} catch (Exception e) {
@@ -84,7 +84,7 @@ public class TaskController {
 		}
 		return new ResponseEntity<Tasks>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@PutMapping("/finishTask/{id}")
 	public ResponseEntity<Tasks> editTasks(@PathVariable Long id){
 		if(!config.authRouter(httpSession))
@@ -98,22 +98,22 @@ public class TaskController {
 		}
 		return new ResponseEntity<Tasks>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	
+
+
 	private boolean router(HttpSession session) {
-		
+
 		if(session== null)
 			return false;
-				Long sessionId = (Long) session.getAttribute("usuario");
-				if(sessionId== null) 
-					return false;
-				
-				else
-					return true;
+		Long sessionId = (Long) session.getAttribute("usuario");
+		if(sessionId== null) 
+			return false;
+
+		else
+			return true;
 	}
-	
-private Long activeUserRouter(HttpSession session) {
-		
+
+	private Long activeUserRouter(HttpSession session) {
+
 		if(router(session))
 			return (long) session.getAttribute("usuario");
 		else
