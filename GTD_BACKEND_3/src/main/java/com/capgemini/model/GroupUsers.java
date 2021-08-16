@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ public class GroupUsers {
 	@Column(name="status_accept")
 	private boolean statusAccept;
 	
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
 	private Users users;
@@ -27,4 +29,5 @@ public class GroupUsers {
 	private Groups groups;
 	
 	
+
 }

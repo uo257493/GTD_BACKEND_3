@@ -46,6 +46,7 @@ public class Tasks {
 	@Column(name = "observations")
 	private String observations;
 
+
 	@ManyToOne( cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "owner_id",  referencedColumnName = "ID", nullable = true)
 	@JsonBackReference
@@ -139,7 +140,6 @@ public class Tasks {
 		this.propietario = propietario;
 	}
 
-	
 
 
 }
