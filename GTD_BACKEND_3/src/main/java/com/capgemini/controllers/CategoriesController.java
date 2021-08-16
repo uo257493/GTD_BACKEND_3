@@ -1,5 +1,7 @@
 package com.capgemini.controllers;
 
+import java.util.List;
+
 import javax.websocket.OnError;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,15 @@ public class CategoriesController {
 	public Categories findById(@PathVariable Long id) {
 		return categoriesService.findById(id);
 	}
+	
+	@GetMapping("/bypropietarioid/{id}")
+	public List<Categories> findByPropietarioId(@PathVariable Long id){
+		return categoriesService.findByPropietario(id);
+	}
+
+//	@GetMapping("/byname/{name}")
+//	public Categories findByName(@PathVariable String name){
+//		return categoriesService.findByName(name);
+//	}
 	
 }

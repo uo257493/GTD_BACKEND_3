@@ -29,13 +29,12 @@ public class CategoriesServiceImpl implements CategoriesService{
 	}
 
 	@Override
-	public Categories findByPropietario(Propietario propietario) {
-		// TODO Auto-generated method stub
-		List<Categories> CategoriesPropietario = categoriesRepository.findByPropietario_id(propietario);
-
-		
-		return null;
+	public List<Categories> findByPropietario(Long Propietario) {
+		Propietario p = new Propietario();
+		p.setId(Propietario);
+		return categoriesRepository.findByPropietario(p);
 	}
+
 
 	
 	
