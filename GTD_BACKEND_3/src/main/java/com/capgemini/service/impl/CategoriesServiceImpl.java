@@ -31,7 +31,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 	@Override
 	public Categories findByPropietario(Propietario propietario) {
 		// TODO Auto-generated method stub
-		List<Categories> CategoriesPropietario = categoriesRepository.findByPropietario_ID(propietario);
+		List<Categories> CategoriesPropietario = categoriesRepository.findByPropietario_id(propietario);
 
 		
 		return null;

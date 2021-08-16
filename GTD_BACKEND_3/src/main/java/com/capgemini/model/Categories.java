@@ -89,9 +89,10 @@ public class Categories {
 		task.setCategory(this);
 	}
 
+	
 	@Override
 	public String toString() {
-		return "categoriesVO [id=" + id + ", name=" + name + ", propietarioId=" + "]";
+		return "Categories [id=" + id + ", name=" + name + ", propietario=" + propietario + ", tasks=" + tasks + "]";
 	}
 
 	@Override

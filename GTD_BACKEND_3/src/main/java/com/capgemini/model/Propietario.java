@@ -18,7 +18,7 @@ public class Propietario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String type;
 
 	public Long getId() {
@@ -48,8 +48,8 @@ public class Propietario {
 
 	@OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL)
 	private List<Tasks> tasks;
-	
-	
+
+
 	public List<Categories> getCategories() {
 		return categories;
 	}
@@ -89,5 +89,6 @@ public class Propietario {
 	public Propietario() {
 		super();
 	}
-	
 }
+
+
