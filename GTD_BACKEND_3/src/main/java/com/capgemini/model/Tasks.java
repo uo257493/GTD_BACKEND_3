@@ -139,7 +139,12 @@ public class Tasks {
 		this.propietario = propietario;
 	}
 
+
 	
 
 
 }
+
+
+
+
